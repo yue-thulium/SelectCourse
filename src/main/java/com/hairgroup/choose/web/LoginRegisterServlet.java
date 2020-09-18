@@ -16,7 +16,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
 
-@WebServlet
 public class LoginRegisterServlet extends HttpServlet {
 
     private static final long serialVersionUID = 242201438076253396L;
