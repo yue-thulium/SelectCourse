@@ -50,7 +50,14 @@ public class LoginRegisterServlet extends HttpServlet {
     }
 
     /**
-     * 登陆方法 —— 登陆进行凭证签发
+     * 登陆方法 —— 登陆进行Session中的JES。。的信息的保存，实现单点登录
+     *
+     *      ！！！
+     *          基于token认证机制的工具类已实现，本项目因保证联系到session等相关的操作
+     *          放弃了基于token的认证模式
+     *      ！！！
+     *
+     *  该系统登录模式为单点登录
      *
      * @param request  请求
      * @param response 响应
@@ -62,7 +69,7 @@ public class LoginRegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         IUserService userService = new UserServiceImpl();
-        //登陆功能，并进行token签发
+        //登陆功能，并进行session的保存(拓展：token签发，以注释形式给出)
         Map<String, Integer> infoMap = userService.login(username, password);
 
         //进行登陆逻辑判断

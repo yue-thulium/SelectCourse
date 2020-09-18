@@ -83,6 +83,13 @@
       <version>1.2.68</version>
     </dependency>
 
+    <!--  redis依赖  -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
