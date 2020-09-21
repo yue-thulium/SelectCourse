@@ -18,6 +18,12 @@ public class User {
 		this.identity = identity;
 	}
 
+	public User(String username, String password, boolean identity) {
+		this.username = username;
+		this.password = password;
+		this.identity = identity;
+	}
+
 	public int getU_id() {
 		return u_id;
 	}

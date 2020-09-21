@@ -20,6 +20,12 @@ public class Teacher {
 		this.u_id = u_id;
 	}
 
+	public Teacher(String t_name, String t_gender, int t_age) {
+		this.t_name = t_name;
+		this.t_gender = t_gender;
+		this.t_age = t_age;
+	}
+
 	public int getT_id() {
 		return t_id;
 	}
