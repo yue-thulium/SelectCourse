@@ -58,7 +58,7 @@ public class CourseDaoImpl implements ICourseDao {
 	}
 
 	@Override
-	public boolean setCourseTeacher(int c_id, int t_id) {
+	public synchronized boolean setCourseTeacher(int c_id, int t_id) {
 
 		try {
 			String sql = "insert into tea_cou_rela values(default, ?, ?)";
@@ -69,13 +69,10 @@ public class CourseDaoImpl implements ICourseDao {
 			
 			return update > 0;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		} finally {
 			TxDbUtils.release();
 		}
-		
-		return false;
 	}
 
 	@Override

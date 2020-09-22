@@ -1,6 +1,8 @@
 package com.hairgroup.choose.entity;
 
-public class Teacher {
+import java.io.Serializable;
+
+public class Teacher implements Serializable {
 	private int t_id;
 	private String t_name;
 	private String t_gender;

@@ -20,6 +20,47 @@
 
   <servlet-mapping>
     <servlet-name>loginRegisterServlet</servlet-name>
-    <url-pattern>/loginRegisterServlet</url-pattern>
+    <url-pattern>/login</url-pattern>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>teacherInfoServlet</servlet-name>
+    <servlet-class>com.hairgroup.choose.web.TeacherInfoServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>teacherInfoServlet</servlet-name>
+    <url-pattern>/teacher</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>studentInfoServlet</servlet-name>
+    <servlet-class>com.hairgroup.choose.web.StudentInfoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>studentInfoServlet</servlet-name>
+    <url-pattern>/student</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>selectCourseServlet</servlet-name>
+    <servlet-class>com.hairgroup.choose.web.SelectCourseServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>selectCourseServlet</servlet-name>
+    <url-pattern>/stuCourseSelect</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>teacherCourseServlet</servlet-name>
+    <servlet-class>com.hairgroup.choose.web.TeacherCourseServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>teacherCourseServlet</servlet-name>
+    <url-pattern>/teaCourseSelect</url-pattern>
   </servlet-mapping>
 </web-app>

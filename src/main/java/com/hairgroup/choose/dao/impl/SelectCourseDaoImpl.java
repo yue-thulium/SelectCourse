@@ -32,7 +32,7 @@ public class SelectCourseDaoImpl implements ISelectCourseDao {
 	}
 
 	@Override
-	public int setCourse(int cla_id, int s_id) {
+	public synchronized int setCourse(int cla_id, int s_id) {
 		
 		try {
 			String sql = "insert into class_stu_rela values(default, ?, ?)";
@@ -41,13 +41,10 @@ public class SelectCourseDaoImpl implements ISelectCourseDao {
 			
 			return runner.update(sql, cla_id, s_id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0;
 		} finally {
 			TxDbUtils.release();
 		}
-		
-		return 0;
 	}
 
 	@Override

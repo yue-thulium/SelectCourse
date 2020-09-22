@@ -1,6 +1,8 @@
 package com.hairgroup.choose.entity;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 	private int s_id;
 	private String s_name;
 	private String s_gender;
@@ -18,6 +20,12 @@ public class Student {
 		this.s_gender = s_gender;
 		this.s_age = s_age;
 		this.u_id = u_id;
+	}
+
+	public Student(String s_name, String s_gender, int s_age) {
+		this.s_name = s_name;
+		this.s_gender = s_gender;
+		this.s_age = s_age;
 	}
 
 	public int getS_id() {

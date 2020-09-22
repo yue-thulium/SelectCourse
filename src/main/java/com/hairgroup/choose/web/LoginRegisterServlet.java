@@ -1,5 +1,8 @@
 package com.hairgroup.choose.web;
 
+import com.alibaba.fastjson.JSON;
+import com.hairgroup.choose.entity.ResultMod;
+import com.hairgroup.choose.entity.Student;
 import com.hairgroup.choose.entity.Teacher;
 import com.hairgroup.choose.entity.User;
 import com.hairgroup.choose.service.IUserService;
@@ -25,6 +28,8 @@ public class LoginRegisterServlet extends HttpServlet {
 
     private static final long serialVersionUID = 242201438076253396L;
 
+    protected IUserService service = new UserServiceImpl();
+
     /**
      *
      * 匹配对应的请求方法
@@ -37,6 +42,11 @@ public class LoginRegisterServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("utf-8");
+        resp.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
+
         try {
             //获取请求方法名
             String methodName = req.getParameter("method");
@@ -67,11 +77,7 @@ public class LoginRegisterServlet extends HttpServlet {
      * @param request  请求
      * @param response 响应
      */
-    private void login(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         //获取用户名及密码
         String username = request.getParameter("username");
@@ -98,10 +104,15 @@ public class LoginRegisterServlet extends HttpServlet {
             jedis.setex(u_id, 60*60*7, token);
             //将签发凭证返回给前端
             response.addCookie(cookie);
+
+            PrintWriter writer = response.getWriter();
+            writer.write(JSON.toJSONString(ResultMod.getInstance().success().message(token)));
+            writer.flush();
+            writer.close();
         } else {
             try {
                 PrintWriter writer = response.getWriter();
-                writer.write("请输入正确的用户名或密码");
+                writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("请输入正确的用户名或密码")));
                 writer.flush();
                 writer.close();
             } catch (IOException e) {
@@ -116,12 +127,6 @@ public class LoginRegisterServlet extends HttpServlet {
      * @param response
      */
     private void teacherRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
-
-        IUserService service = new UserServiceImpl();
 
         User user = new User(
                 request.getParameter("username"),
@@ -140,16 +145,40 @@ public class LoginRegisterServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
 
         if (register > 0) {
-            writer.write("注册成功！即将返回登录界面");
+            writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("注册成功！即将返回登录界面")));
         } else {
-            writer.write("注册失败！");
+            writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("注册失败！")));
         }
         writer.flush();
         writer.close();
 
     }
 
-    private void studentRegister(HttpServletRequest request, HttpServletResponse response) {
+    private void studentRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        User user = new User(
+                request.getParameter("username"),
+                request.getParameter("password"),
+                "0".equals(request.getParameter("identity"))
+        );
+
+        Student student = new Student(
+                request.getParameter("s_name"),
+                request.getParameter("s_gender"),
+                Integer.parseInt(request.getParameter("s_age"))
+        );
+
+        int register = service.register(user, student);
+
+        PrintWriter writer = response.getWriter();
+
+        if (register > 0) {
+            writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("注册成功！即将返回登录界面")));
+        } else {
+            writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("注册失败！")));
+        }
+        writer.flush();
+        writer.close();
 
     }
 }

@@ -1,6 +1,8 @@
 package com.hairgroup.choose.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 	private int u_id;
 	private String username;
 	private String password;
