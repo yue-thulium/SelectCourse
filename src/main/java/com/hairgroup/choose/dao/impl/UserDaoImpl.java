@@ -34,7 +34,7 @@ public class UserDaoImpl implements IUserDao {
 			QueryRunner runner = new QueryRunner(TxDbUtils.getSource());
 
 			BigInteger u_id = runner.insert(sqlInsertUser, new ScalarHandler<BigInteger>(), user.getUsername(),
-					user.getPassword(), user.getIdentity());
+					user.getPassword(), 1);
 
 			BigInteger newTeaID = runner.insert(sqlInserTeacher, new ScalarHandler<BigInteger>(), teacher.getT_name(),
 					teacher.getT_gender(), teacher.getT_age(), u_id.intValue());
@@ -69,7 +69,7 @@ public class UserDaoImpl implements IUserDao {
 			QueryRunner runner = new QueryRunner(TxDbUtils.getSource());
 
 			BigInteger u_id = runner.insert(sqlInsertUser, new ScalarHandler<BigInteger>(), user.getUsername(),
-					user.getPassword(), user.getIdentity());
+					user.getPassword(), 0);
 
 			BigInteger newStuID = runner.insert(sqlInserStudent, new ScalarHandler<BigInteger>(), student.getS_name(), student.getS_gender(),
 					student.getS_age(), u_id);
@@ -105,6 +105,10 @@ public class UserDaoImpl implements IUserDao {
 			QueryRunner runner = new QueryRunner(TxDbUtils.getSource());
 			
 			User user = runner.query(sqlLogin, new BeanHandler<>(User.class), username, password);
+
+			if (user == null) {
+				return null;
+			}
 			
 			String role = user.getIdentity() == true ? "teacher" : "student";
 			

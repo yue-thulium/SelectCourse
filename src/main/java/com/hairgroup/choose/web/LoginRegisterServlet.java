@@ -8,6 +8,7 @@ import com.hairgroup.choose.entity.User;
 import com.hairgroup.choose.service.IUserService;
 import com.hairgroup.choose.service.impl.UserServiceImpl;
 import com.hairgroup.choose.until.JWTUtil;
+import com.hairgroup.choose.until.Md5Encoding;
 import com.hairgroup.choose.until.RedisUtil;
 import redis.clients.jedis.Jedis;
 
@@ -85,7 +86,7 @@ public class LoginRegisterServlet extends HttpServlet {
 
         IUserService userService = new UserServiceImpl();
         //登陆功能，并进行token签发
-        Map<String, Integer> infoMap = userService.login(username, password);
+        Map<String, Integer> infoMap = userService.login(username, Md5Encoding.md5SaltEncode(password));
 
         //进行登陆逻辑判断
         if (infoMap != null) {
@@ -130,7 +131,7 @@ public class LoginRegisterServlet extends HttpServlet {
 
         User user = new User(
                 request.getParameter("username"),
-                request.getParameter("password"),
+                Md5Encoding.md5SaltEncode(request.getParameter("password")),
                 "0".equals(request.getParameter("identity"))
         );
 
@@ -158,7 +159,7 @@ public class LoginRegisterServlet extends HttpServlet {
 
         User user = new User(
                 request.getParameter("username"),
-                request.getParameter("password"),
+                Md5Encoding.md5SaltEncode(request.getParameter("password")),
                 "0".equals(request.getParameter("identity"))
         );
 

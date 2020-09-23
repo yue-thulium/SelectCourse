@@ -42,7 +42,9 @@ public class UserServiceImpl implements IUserService {
 		});
 		
 		try {
-			return (Map<String, Integer>) future.get();
+			if (future != null) {
+				return (Map<String, Integer>) future.get();
+			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
