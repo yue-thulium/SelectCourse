@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Teacher implements Serializable {
 	private int t_id;
 	private String t_name;
-	private String t_gender;
+	private String t_gander;
 	private int t_age;
 	private int u_id;
 	
@@ -13,18 +13,18 @@ public class Teacher implements Serializable {
 		super();
 	}
 
-	public Teacher(int t_id, String t_name, String t_gender, int t_age, int u_id) {
+	public Teacher(int t_id, String t_name, String t_gander, int t_age, int u_id) {
 		super();
 		this.t_id = t_id;
 		this.t_name = t_name;
-		this.t_gender = t_gender;
+		this.t_gander = t_gander;
 		this.t_age = t_age;
 		this.u_id = u_id;
 	}
 
-	public Teacher(String t_name, String t_gender, int t_age) {
+	public Teacher(String t_name, String t_gander, int t_age) {
 		this.t_name = t_name;
-		this.t_gender = t_gender;
+		this.t_gander = t_gander;
 		this.t_age = t_age;
 	}
 
@@ -44,12 +44,12 @@ public class Teacher implements Serializable {
 		this.t_name = t_name;
 	}
 
-	public String getT_gender() {
-		return t_gender;
+	public String getT_gander() {
+		return t_gander;
 	}
 
-	public void setT_gender(String t_gender) {
-		this.t_gender = t_gender;
+	public void setT_gander(String t_gender) {
+		this.t_gander = t_gender;
 	}
 
 	public int getT_age() {
@@ -70,7 +70,7 @@ public class Teacher implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Teacher [t_id=" + t_id + ", t_name=" + t_name + ", t_gender=" + t_gender + ", t_age=" + t_age
+		return "Teacher [t_id=" + t_id + ", t_name=" + t_name + ", t_gander=" + t_gander + ", t_age=" + t_age
 				+ ", u_id=" + u_id + "]";
 	}
 	

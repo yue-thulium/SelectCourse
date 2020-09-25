@@ -10,4 +10,5 @@ public interface IUserService {
 	int register(User user,Teacher teacher);
 	int register(User user,Student student);
 	Map<String, Integer> login(String username, String password);
+	String getRealName(int id,String source);
 }

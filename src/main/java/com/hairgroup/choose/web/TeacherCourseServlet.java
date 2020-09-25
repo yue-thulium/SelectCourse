@@ -107,11 +107,11 @@ public class TeacherCourseServlet extends HttpServlet {
      */
     private void setCourseTeacher(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String c_id = req.getParameter("c_id");
-        String t_id = req.getParameter("t_id");
+        Integer t_id = (Integer) req.getAttribute("t_id");
 
         PrintWriter writer = resp.getWriter();
 
-        if (courseService.setCourseTeacher(Integer.parseInt(c_id), Integer.parseInt(t_id))) {
+        if (courseService.setCourseTeacher(Integer.parseInt(c_id), t_id)) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("选课成功！")));
         } else {
             writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("未知错误")));
@@ -126,11 +126,11 @@ public class TeacherCourseServlet extends HttpServlet {
      */
     private void removeCourseTeacher(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String c_id = req.getParameter("c_id");
-        String t_id = req.getParameter("t_id");
+        Integer t_id = (Integer) req.getAttribute("t_id");
 
         PrintWriter writer = resp.getWriter();
 
-        if (courseService.removeCourseTeacher(Integer.parseInt(c_id), Integer.parseInt(t_id))) {
+        if (courseService.removeCourseTeacher(Integer.parseInt(c_id), t_id)) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("退课成功！")));
         } else {
             writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("未知错误")));

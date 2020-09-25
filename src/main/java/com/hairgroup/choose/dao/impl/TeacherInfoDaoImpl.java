@@ -36,11 +36,11 @@ public class TeacherInfoDaoImpl implements ITeacherInfoDao {
 	@Override
 	public int updateTeaInfo(Teacher teacher) {
 		try {
-			String sql = "update student set s_name = ?, s_age = ?";
+			String sql = "update teacher set t_name = ?, t_age = ? where t_id = ?";
 			
 			QueryRunner runner = new QueryRunner(TxDbUtils.getSource());
 			
-			return runner.update(sql, teacher.getT_name(), teacher.getT_age());
+			return runner.update(sql, teacher.getT_name(), teacher.getT_age(), teacher.getT_id());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +54,13 @@ public class TeacherInfoDaoImpl implements ITeacherInfoDao {
 	@Override
 	public List<Course> getCourseInfo(int t_id) {
 		try {
-			String sql = "select * from course where c_id in (select distinct c_id from tea_cou_rela where t_id = ?)";
+			String sql = "SELECT c.c_id,c.c_name,c.c_info,c.c_room,c.c_num,t.t_name\n" +
+					"FROM teacher AS t \n" +
+					"RIGHT JOIN \n" +
+					"(SELECT c.c_id,c.c_name,c.c_info,c.c_room,c.c_num,tc.t_id\n" +
+					"FROM course as c LEFT JOIN tea_cou_rela AS tc ON c.c_id = tc.c_id) AS c \n" +
+					"ON t.t_id = c.t_id\n" +
+					"WHERE c.c_id IN (SELECT c_id FROM tea_cou_rela AS tc WHERE tc.t_id=?)";
 			
 			QueryRunner runner = new QueryRunner(TxDbUtils.getSource());
 			

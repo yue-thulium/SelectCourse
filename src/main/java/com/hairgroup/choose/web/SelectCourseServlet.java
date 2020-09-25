@@ -71,9 +71,9 @@ public class SelectCourseServlet extends HttpServlet {
      * @throws IOException
      */
     private void getCanSelectCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String s_id = req.getParameter("s_id");
+        Integer s_id = (Integer) req.getAttribute("s_id");
 
-        List<Course> canSelectCourse = selectCourseService.getCanSelectCourse(Integer.parseInt(s_id));
+        List<Course> canSelectCourse = selectCourseService.getCanSelectCourse(s_id);
 
         PrintWriter writer = resp.getWriter();
 
@@ -92,11 +92,11 @@ public class SelectCourseServlet extends HttpServlet {
      */
     private void setCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String cla_id = req.getParameter("cla_id");
-        String s_id = req.getParameter("s_id");
+        Integer s_id = (Integer) req.getAttribute("s_id");
 
         PrintWriter writer = resp.getWriter();
 
-        if (selectCourseService.setCourse(Integer.parseInt(cla_id), Integer.parseInt(s_id)) > 0) {
+        if (selectCourseService.setCourse(Integer.parseInt(cla_id), s_id) > 0) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("选课成功！")));
         } else {
             writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("未知错误")));
@@ -111,11 +111,11 @@ public class SelectCourseServlet extends HttpServlet {
      */
     private void removeSelect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String cla_id = req.getParameter("cla_id");
-        String s_id = req.getParameter("s_id");
+        Integer s_id = (Integer) req.getAttribute("s_id");
 
         PrintWriter writer = resp.getWriter();
 
-        if (selectCourseService.removeSelect(Integer.parseInt(cla_id), Integer.parseInt(s_id)) > 0) {
+        if (selectCourseService.removeSelect(Integer.parseInt(cla_id), s_id) > 0) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("退课成功！")));
         } else {
             writer.write(JSON.toJSONString(ResultMod.getInstance().fail().message("未知错误")));

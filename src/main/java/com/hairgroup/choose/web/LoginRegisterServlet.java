@@ -32,11 +32,10 @@ public class LoginRegisterServlet extends HttpServlet {
     protected IUserService service = new UserServiceImpl();
 
     /**
-     *
      * 匹配对应的请求方法
      * 通过反射机制实现
      *
-     * @param req 请求
+     * @param req  请求
      * @param resp 响应
      * @throws ServletException
      * @throws IOException
@@ -67,13 +66,13 @@ public class LoginRegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req,resp);
+        this.doGet(req, resp);
     }
 
     /**
      * 登陆方法 —— 登陆进行token的信息的保存，实现单点登录
-     *
-     *  该系统登录模式为单点登录
+     * <p>
+     * 该系统登录模式为单点登录
      *
      * @param request  请求
      * @param response 响应
@@ -102,7 +101,7 @@ public class LoginRegisterServlet extends HttpServlet {
                 jedis.del(u_id);
             }
             //添加新的token进入redis缓存
-            jedis.setex(u_id, 60*60*7, token);
+            jedis.setex(u_id, 60 * 60 * 7, token);
             //将签发凭证返回给前端
             response.addCookie(cookie);
 
@@ -124,6 +123,7 @@ public class LoginRegisterServlet extends HttpServlet {
 
     /**
      * 注册方法——用于对教师用户进行注册
+     *
      * @param request
      * @param response
      */
@@ -181,5 +181,28 @@ public class LoginRegisterServlet extends HttpServlet {
         writer.flush();
         writer.close();
 
+    }
+
+    private void getInf(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String token = request.getHeader("token");
+        Integer userRole = JWTUtil.getUserRole(token);
+        Integer userIdentity = JWTUtil.getUserIdentity(token);
+
+        PrintWriter writer = response.getWriter();
+
+        String name = "";
+
+        if (userRole == 0) {
+            name = service.getRealName(userIdentity, "student");
+        } else {
+            name = service.getRealName(userIdentity, "teacher");
+        }
+
+        if (!"".equals(name)) {
+            writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("success").add("role",userRole).add("username",name)));
+        } else {
+            writer.write(JSON.toJSONString(ResultMod.getInstance().success().message("未知错误")));
+        }
     }
 }

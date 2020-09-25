@@ -72,11 +72,11 @@ public class TeacherInfoServlet extends HttpServlet {
      * @throws IOException
      */
     private void getTeacherInfo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String u_id = req.getParameter("u_id");
+        Integer u_id = (Integer) req.getAttribute("u_id");
 
         PrintWriter writer = resp.getWriter();
 
-        Teacher teacher = teacherInfoService.getInfo(Integer.parseInt(u_id));
+        Teacher teacher = teacherInfoService.getInfo(u_id);
 
         if (teacher != null) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message(teacher)));
@@ -112,11 +112,11 @@ public class TeacherInfoServlet extends HttpServlet {
      * @throws IOException
      */
     private void getCourseInfo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String t_id = req.getParameter("t_id");
+        Integer t_id = (Integer) req.getAttribute("t_id");
 
         PrintWriter writer = resp.getWriter();
 
-        List<Course> courseInfo = teacherInfoService.getCourseInfo(Integer.parseInt(t_id));
+        List<Course> courseInfo = teacherInfoService.getCourseInfo(t_id);
 
         if (courseInfo != null) {
             writer.write(JSON.toJSONString(ResultMod.getInstance().success().message(courseInfo)));

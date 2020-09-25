@@ -29,7 +29,7 @@ public class RedisUtil {
 
     //可用连接实例的最大数目，默认值为8；
     //如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
-    private final static int MAX_TOTAL = 8;
+    private final static int MAX_TOTAL = 300;
 
     //最小空闲连接数, 默认0
     private final static int MIN_IDLE=0;
@@ -60,7 +60,7 @@ public class RedisUtil {
     private final static boolean LIFO=true;
 
     //逐出连接的最小空闲时间 默认1800000毫秒(30分钟)
-    private final static long MIN_EVICTABLE_IDLE_TIME_MILLIS=1800000L;
+    private final static long MIN_EVICTABLE_IDLE_TIME_MILLIS=180000L;
 
     //对象空闲多久后逐出, 当空闲时间>该值 且 空闲连接>最大空闲数 时直接逐出,不再根据MinEvictableIdleTimeMillis判断  (默认逐出策略)
     private final static long SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS=1800000L;

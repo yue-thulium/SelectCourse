@@ -63,4 +63,36 @@
     <servlet-name>teacherCourseServlet</servlet-name>
     <url-pattern>/teaCourseSelect</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>courseServlet</servlet-name>
+    <servlet-class>com.hairgroup.choose.web.CourseServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>courseServlet</servlet-name>
+    <url-pattern>/course</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+    <filter-name>corsFilter</filter-name>
+    <filter-class>com.hairgroup.choose.filter.CORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>corsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>roleFilter</filter-name>
+    <filter-class>com.hairgroup.choose.filter.RoleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>roleFilter</filter-name>
+    <url-pattern>/teacher</url-pattern>
+    <url-pattern>/student</url-pattern>
+    <url-pattern>/stuCourseSelect</url-pattern>
+    <url-pattern>/teaCourseSelect</url-pattern>
+    <url-pattern>/course</url-pattern>
+  </filter-mapping>
 </web-app>

@@ -39,4 +39,9 @@ public class ResultMod extends HashMap<String, Object> implements Serializable {
         this.put("message", message);
         return this;
     }
+
+    public ResultMod add(String key, Object value) {
+        this.put(key, value);
+        return this;
+    }
 }

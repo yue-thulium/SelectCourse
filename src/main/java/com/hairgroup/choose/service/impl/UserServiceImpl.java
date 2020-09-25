@@ -57,4 +57,9 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
+	@Override
+	public String getRealName(int id, String source) {
+		return userDao.getRealName(id, source);
+	}
+
 }

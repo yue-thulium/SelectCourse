@@ -36,4 +36,6 @@ public interface IUserDao {
 	 * @return
 	 */
 	Map<String, Integer> login(String username, String password);
+
+	String getRealName(int id,String source);
 }
